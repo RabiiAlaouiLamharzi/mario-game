@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mario’s Code Adventure — Tutorial & Start Land</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ======= TUTORIAL PAGE ======= -->
+    <section class="screen" id="tutorial" aria-hidden="false">
+      <header class="top">
+        <div class="brand">Mario's Code Adventure</div>
+        <div class="hint">Press <kbd>SPACE</kbd> to view the Start Land</div>
+      </header>
+
+      <main class="main">
+        <div class="left">
+          <!-- Character SVG -->
+          <div class="character-stage" aria-hidden="true">
+            <svg viewBox="0 0 200 220" class="mario" role="img" aria-label="Mario character">
+              <ellipse cx="100" cy="60" rx="72" ry="38" class="hat"/>
+              <rect x="36" y="80" width="128" height="24" rx="12" class="brim"/>
+              <text x="100" y="70" text-anchor="middle" class="hat-letter">M</text>
+
+              <circle cx="100" cy="130" r="48" class="face"/>
+              <ellipse cx="100" cy="142" rx="18" ry="12" class="nose"/>
+              <path d="M70 150 Q100 165 130 150 Q100 178 70 150" class="mustache"/>
+              <ellipse cx="86" cy="118" rx="8" ry="10" class="eye"/>
+              <ellipse cx="114" cy="118" rx="8" ry="10" class="eye"/>
+            </svg>
+            <div class="speech" id="char-speech">Hi! I'll show you how to teach me using code 🎮</div>
+          </div>
+
+          <h1 class="title">Tutorial — How this game teaches Java</h1>
+
+          <div class="objectives card">
+            <h3>Learning Objectives</h3>
+            <ul>
+              <li>Basic commands & variables</li>
+              <li>Loops (for, while)</li>
+              <li>Conditional logic (if / else)</li>
+              <li>Functions & methods (Level 3 typing)</li>
+            </ul>
+          </div>
+
+          
+
+        </div>
+
+        <div class="right">
+          <!-- Interactive area: drag & drop blocks demo (levels 1-2) and Level 3 code editor -->
+          <div class="card interactive">
+            <h3>Try the learning modes</h3>
+
+            <div class="modes">
+              <button class="mode-btn active" data-mode="blocks">Blocks (Lvl 1–2)</button>
+              <button class="mode-btn" data-mode="typing">Type (Lvl 3)</button>
+            </div>
+
+            <!-- Blocks Mode -->
+            <div class="mode-panel" id="blocks-mode">
+              <p class="muted">Assemble a sequence of commands (drag into the slot), then press <strong>Run</strong>.</p>
+
+              <div class="toolbox">
+                <div class="block draggable" draggable="true" data-code="moveForward()">moveForward()</div>
+                <div class="block draggable" draggable="true" data-code="turnLeft()">turnLeft()</div>
+                <div class="block draggable" draggable="true" data-code="turnRight()">turnRight()</div>
+                <div class="block draggable" draggable="true" data-code="jump()">jump()</div>
+                <div class="block draggable" draggable="true" data-code="collectCoin()">collectCoin()</div>
+                <div class="block draggable repeat" draggable="true" data-code="for( i=0; i<__N__; i++ ) { ... }">for loop (drop inside)</div>
+              </div>
+
+              <div class="sequence-area" id="sequence">
+                <div class="slot">Drop blocks here</div>
+              </div>
+
+              <div class="controls-row">
+                <button class="btn primary" id="run-seq">Run</button>
+                <button class="btn ghost" id="clear-seq">Clear</button>
+                <div class="result" id="seq-result" aria-live="polite"></div>
+              </div>
+
+              <div class="sim-stage">
+                <div class="mini-map">
+                  <div class="grid" id="grid">
+                    <!-- 5x1 grid showing Mario & coins -->
+                    <div class="cell coin" data-index="0"></div>
+                    <div class="cell coin" data-index="1"></div>
+                    <div class="cell" data-index="2"></div>
+                    <div class="cell coin" data-index="3"></div>
+                    <div class="cell portal" data-index="4"></div>
+                    <div class="mario-mini" id="mini-mario" style="left:0%">M</div>
+                  </div>
+                </div>
+                <div class="sim-log" id="sim-log">Simulation log will appear here.</div>
+              </div>
+            </div>
+
+            <!-- Typing Mode -->
+            <div class="mode-panel hidden" id="typing-mode">
+              <p class="muted">Level 3 enables real Java-like typing. Try writing a small method below.</p>
+              <textarea id="code-editor" spellcheck="false">// public void collectRowOfCoins() { ... }</textarea>
+              <div class="controls-row">
+                <button class="btn primary" id="run-code">Run Code</button>
+                <button class="btn ghost" id="example-code">Insert Example</button>
+                <div class="result" id="code-result" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <!-- pedagogy notes & feedback -->
+            <div class="notes">
+              <strong>Feedback system:</strong> Friendly hints, in-world tips, and animated outcomes help learners iterate without frustration.
+            </div>
+          </div>
+
+          <!-- Quick summary card -->
+          <div class="card summary">
+            <h4>Three-level progression</h4>
+            <ol>
+              <li><strong>Level 1 — Mushroom Meadows:</strong> Basic commands & loops (Drag & Drop)</li>
+              <li><strong>Level 2 — Koopa Castle:</strong> Conditionals & loops (Drag & Drop)</li>
+              <li><strong>Level 3 — Power-Up Creator:</strong> Functions & typing (Text editor)</li>
+            </ol>
+            <div class="cta-row">
+              <button class="btn primary" id="to-map">View Start Land</button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+    </section>
+
+    <!-- ======= START LAND PAGE ======= -->
+    <section class="screen" id="land" aria-hidden="true">
+      <header class="top">
+        <div class="brand">Start Land Overview</div>
+        <div class="hint">Press <kbd>SPACE</kbd> to return to Tutorial or use the arrows</div>
+      </header>
+
+      <main class="main map-main">
+        <div class="map-card">
+          <h2 class="map-title">Mushroom Kingdom — Start Land</h2>
+          <p class="muted">Collect coins to open the portal. Click a land to view details, or press <kbd>SPACE</kbd> to move Mario between lands.</p>
+
+          <div class="viewport">
+            <svg viewBox="0 0 1000 420" class="map-svg" aria-hidden="false">
+              <rect width="100%" height="100%" fill="transparent"></rect>
+
+              <!-- hills -->
+              <ellipse cx="160" cy="320" rx="220" ry="110" class="hill"/>
+              <ellipse cx="840" cy="320" rx="200" ry="100" class="hill"/>
+
+              <!-- track base -->
+              <rect x="120" y="260" width="760" height="70" rx="35" class="track"/>
+
+              <!-- coins left -->
+              <g id="coins-left">
+                <circle cx="180" cy="300" r="10" class="coin" data-coin="L1"></circle>
+                <circle cx="240" cy="300" r="10" class="coin" data-coin="L2"></circle>
+                <circle cx="300" cy="300" r="10" class="coin" data-coin="L3"></circle>
+              </g>
+
+              <!-- power box right -->
+              <rect x="660" y="280" width="28" height="28" rx="6" class="power-box" id="power-box"></rect>
+
+              <!-- lands (clickable areas) -->
+              <g class="lands">
+                <rect x="120" y="240" width="250" height="110" rx="10" class="land-area" data-land="0"></rect>
+                <rect x="420" y="240" width="160" height="110" rx="10" class="land-area" data-land="1"></rect>
+                <rect x="640" y="240" width="240" height="110" rx="10" class="land-area" data-land="2"></rect>
+              </g>
+
+              <!-- mini Mario (moves along X) -->
+              <g id="mario-mini" transform="translate(180,230)">
+                <ellipse cx="0" cy="10" rx="18" ry="12" class="mm-face"></ellipse>
+                <rect x="-22" y="-18" width="44" height="12" rx="6" class="mm-hat"></rect>
+                <text x="0" y="-7" class="mm-m" text-anchor="middle">M</text>
+              </g>
+
+              <!-- portal (inactive/active) -->
+              <g id="portal" transform="translate(920,280)" opacity="0.3">
+                <circle cx="0" cy="0" r="18" class="portal-ring"></circle>
+                <text x="0" y="6" text-anchor="middle" class="portal-letter">⤴</text>
+              </g>
+
+              <!-- arrows -->
+              <g class="arrows">
+                <path d="M430 240 L460 240 L455 236 M460 240 L455 244" class="arrow"/>
+                <path d="M540 240 L570 240 L565 236 M570 240 L565 244" class="arrow"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="map-controls">
+            <button class="btn ghost" id="prev-land">◀ Prev</button>
+            <div class="land-info" id="land-info">
+              <strong>Mushroom Meadows</strong>
+              <p class="muted small">Level 1 — Basics & Loops. Drag-and-drop blocks, collect coins to reveal the portal.</p>
+            </div>
+            <button class="btn ghost" id="next-land">Next ▶</button>
+            <button class="btn primary" id="collect-all">Collect demo coins</button>
+            <div class="portal-status" id="portal-status">Portal: <span class="muted">Inactive</span></div>
+          </div>
+
+        </div>
+      </main>
+
+      <footer class="foot">
+        <div class="copyright">Storyboard-style overview • Use SPACE to cycle Mario</div>
+      </footer>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
